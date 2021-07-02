@@ -31,7 +31,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['login'],
                         'allow' => true,
-                        'roles' => ['*']
+                        'roles' => ['?']
                     ]
 
                 ],
@@ -39,7 +39,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post', 'get'],
+                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -76,11 +76,7 @@ class SiteController extends Controller
      * @return string
      */
     public function actionLogin()
-    {
-        if (Yii::$app->user->isGuest){
-            $this->redirect('index');
-        }
-        
+    {   
         $model = new LoginForm();
         $params = Yii::$app->request->post();
 
