@@ -24,7 +24,7 @@ class SiteController extends Controller
                 'only' => [],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'login'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -77,6 +77,10 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {   
+        if (!\Yii::$app->user->isGuest) {
+            $this->redirect('index')
+        }
+        
         $model = new LoginForm();
         $params = Yii::$app->request->post();
 
