@@ -39,7 +39,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['get'],
                 ],
             ],
         ];
@@ -48,7 +48,7 @@ class SiteController extends Controller
     /**
      * @return array
      */
-    public function actions()
+    public function actions(): array
     {
         return [
             'error' => [
@@ -75,31 +75,29 @@ class SiteController extends Controller
     /**
      * @return string
      */
-    public function actionLogin()
-    {   
+    public function actionLogin(): string
+    {
         if (!\Yii::$app->user->isGuest) {
             $this->redirect('index');
         }
-        
+
         $model = new LoginForm();
         $params = Yii::$app->request->post();
-
-        if ($params !== []) {
-            $model->load($params);
-
+        if ($params !== [] && $model->load($params) && $model->validate()) {
             if ($model->login()) {
                 $this->redirect('index');
             }
+            $model->addError('username', 'Не правильное имя пользователя или пароль');
         }
-        return $this->render('login', compact('model'));
 
+        return $this->render('login', compact('model'));
     }
 
     public function actionLogout(): void
     {
         \Yii::$app->user->logout();
 
-       $this->redirect('login');
+        $this->redirect('login');
     }
 
 }

@@ -1,12 +1,14 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
+use app\models\User;
 use app\widgets\Alert;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -28,50 +30,53 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
+    if (Yii::$app->view->title !== 'Вход') {
+        NavBar::begin([
+            'brandLabel' => Yii::$app->name,
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => 'navbar nav nav-masthead justify-content-center sticky-top navbar-expand-lg bg-dark navbar-dark',
+            ],
+        ]);
+        echo Nav::widget([
+            'items' => [
+                [
+                    'label' => 'Home',
+                    'url' => ['/site/index'],
+                    'options' => ['class' => 'nav-item'],
+                    'visible' => !Yii::$app->user->isGuest,
+                ],
+                [
+                    'label' =>
+                        sprintf(
+                            'Logout(%s)',
+                            !Yii::$app->user->isGuest
+                                ? User::findOne(['id' => Yii::$app->user->id])->username
+                                : null
+                        ),
+                    'url' => ['/site/logout'],
+                    'visible' => !Yii::$app->user->isGuest,
+                    'options' => ['class' => 'nav-item']
+                ],
+            ],
+            'options' => ['class' => 'navbar-nav ml-4 justify-content-between'],
+        ]);
+        NavBar::end();
+    }
     ?>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
+    <div class="container-fluid min-vh-100">
         <?= $content ?>
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+<?php if (Yii::$app->view->title !== 'Вход') {
+    echo '<footer class="footer">
+            <div class="container-fluid">
+                <p class="pull-left">&copy; AdvertTelegramBot '. date("Y") . '</p>
+            </div>
+           </footer>';
+} ?>
 
 <?php $this->endBody() ?>
 </body>

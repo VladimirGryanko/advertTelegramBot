@@ -6,6 +6,13 @@ use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
+/**
+ * Class User
+ * @package app\models
+ * @property $username
+ * @property $password
+ * @property $authKey
+ */
 class User extends ActiveRecord implements IdentityInterface
 {
     /**
@@ -23,12 +30,13 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findUser(string $username, string $password)
     {
-        $userId = static::find()
+        $user = static::find()
             ->select(['id'])
             ->where(['username' => $username, 'password' => (int)$password])
-            ->asArray()->one();
+            ->asArray()
+            ->one();
 
-        return static::findIdentity((int) $userId['id']);
+        return $user ? static::findIdentity($user['id']) : null;
     }
 
     /**

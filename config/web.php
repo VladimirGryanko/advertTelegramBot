@@ -5,8 +5,10 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'Bot',
+    'name' => 'AdvertTelegramBot',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'ru-RU',
 
     'aliases' => [
         '@bower' => '@vendor/bower-asset',

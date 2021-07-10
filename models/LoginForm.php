@@ -28,7 +28,19 @@ class LoginForm extends Model
         return [
             [['username', 'password'], 'required'],
             ['rememberMe', 'boolean'],
-            ['password', 'integer'],
+            [['password'], 'string', 'min' => 3, 'max' => 16],
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'username' => 'Логин',
+            'rememberMe' => 'Запомнить этот браузер?',
+            'password' => 'Пароль',
         ];
     }
 
@@ -37,9 +49,9 @@ class LoginForm extends Model
      * Logs in a user using the provided username and password.
      * @return bool whether the user is logged in successfully
      */
-    public function login()
+    public function login(): bool
     {
-        if ($this->validate() && $this->getUser() !== null) {
+        if ($this->getUser() !== null) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
 
