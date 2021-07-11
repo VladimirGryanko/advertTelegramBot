@@ -607,10 +607,10 @@ h1 {
 
 .custom-panel {
     padding: 15px;
-    border-radius: 18px;
-    background: #1f202e;
-    box-shadow: 12px 12px 24px #151620,
-    -12px -12px 24px #292a3c;
+    border-radius: 50px;
+    background: #1c1c1c;
+    box-shadow: 13px 13px 27px #151515,
+    -13px -13px 27px #232323;
 }
 
 a {
@@ -618,7 +618,7 @@ a {
 }
 
 a:hover {
-    color: rgba(205, 114, 10, 0.6);
+    color: rgba(10, 205, 189, 0.6);
     text-decoration: none;
 }
 
@@ -626,18 +626,18 @@ a:hover {
     color: rgba(255, 255, 255, 0.6) !important;
     font-size: 14px;
     padding: 14px;
-    border-radius: 83px;
-    background: linear-gradient(145deg, #212231, #1c1d29);
-    box-shadow: 6px 6px 19px #161721,
-    -6px -6px 19px #28293b;
+    border-radius: 50px;
+    background: #1c1c1c;
+    box-shadow: 13px 13px 27px #151515,
+    -13px -13px 27px #232323;
 }
 
 .custom-btn:hover {
-    color: rgba(205, 114, 10, 0.6) !important;
-    border-radius: 83px;
-    background: linear-gradient(145deg, #1c1d29, #212231);
-    box-shadow: 6px 6px 19px #161721,
-    -6px -6px 19px #28293b;
+    color: rgba(10, 189, 205, 0.6) !important;
+    border-radius: 50px;
+    background: #1c1c1c;
+    box-shadow: inset 13px 13px 27px #151515,
+    inset -13px -13px 27px #232323;
 }
 
 a.asc:after {
@@ -667,6 +667,7 @@ a.desc:after {
 }
 
 .custom-input {
+    border: 0 !important;
     display: block;
     width: 100%;
     height: calc(1.5em + 0.75rem + 2px);
@@ -677,7 +678,12 @@ a.desc:after {
     color: rgba(175, 181, 189, 0.6);
     background-clip: padding-box;
     border-radius: 50px;
-    background: #1f202e;
-    box-shadow: inset 9px 9px 7px #1a1b27,
-    inset -9px -9px 7px #242535;
+    background: #1c1c1c;
+    box-shadow: inset 13px 13px 27px #151515,
+    inset -13px -13px 27px #232323;
+}
+
+:focus-visible {
+    outline: none;
+    background: none;
 }

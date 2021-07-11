@@ -32,6 +32,14 @@ class UsersController extends \yii\web\Controller
                         'allow' => true,
                         'roles' => [User::ROLE_ADMIN],
                     ],
+                    [
+                        'actions' => ['create', 'delete', 'update'],
+                        'allow' => false,
+                        'roles' => [User::ROLE_USER],
+                        'denyCallback' => function ($rule, $action) {
+                            return $action->controller->redirect('/users/index');
+                        },
+                    ],
                 ],
             ],
             'verbs' => [
@@ -75,15 +83,24 @@ class UsersController extends \yii\web\Controller
             $userRole = $auth->getRole('user');
             $auth->assign($userRole, $model->getId());
 
-            $this->redirect('/site/index');
+            $this->redirect('/users/index');
         }
 
         return $this->render('_create', compact('model'));
     }
 
-    public function actionDelete()
+    /**
+     * @param int $id
+     * @return \yii\web\Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDelete(int $id): \yii\web\Response
     {
+        $user = User::findOne($id);
+        $user->delete();
 
+        return $this->redirect('/users/index');
     }
 
     /**

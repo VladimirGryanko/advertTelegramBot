@@ -32,7 +32,7 @@ AppAsset::register($this);
 if (!Yii::$app->user->isGuest) {
     echo '<style>
     body {
-        background-color: #1f202e;
+        background-color: #1c1c1c;
     }
 </style>';
 }
