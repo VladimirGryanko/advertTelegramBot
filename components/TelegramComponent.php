@@ -9,12 +9,17 @@ use yii\httpclient\Client;
 use \yii\httpclient\Response;
 
 
+/**
+ *
+ * @property-write string $webhook
+ * @property-read null|array $updates
+ */
 class TelegramComponent extends Component
 {
     /** @var string */
-    public $token;
+    public string $token;
     /** @var Client */
-    private $client;
+    private Client $client;
 
     /** URL для создания запроса боту */
     private const BASE_URL = 'https://api.telegram.org/bot%s';
@@ -114,12 +119,11 @@ class TelegramComponent extends Component
     /**
      * Метод установки вубхуков
      * @param string $url
-     * @param string $certificate
      * @return void
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\httpclient\Exception
      */
-    public function setWebhook($url, $certificate): void
+    public function setWebhook(string $url): void
     {
         $response = $this->client
             ->post(self::METHOD_SET_WEBHOOK, ['url' => $url])
