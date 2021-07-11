@@ -28,7 +28,7 @@ class UsersController extends \yii\web\Controller
                         'roles' => [User::ROLE_USER],
                     ],
                     [
-                        'actions' => ['create', 'delete'],
+                        'actions' => ['create', 'delete', 'update'],
                         'allow' => true,
                         'roles' => [User::ROLE_ADMIN],
                     ],
@@ -68,7 +68,7 @@ class UsersController extends \yii\web\Controller
         if ($request->isPost && $model->load($request->post()) && $model->validate()) {
             $model->authKey = hash('sha256', random_bytes(5));
             $model->accessToken = hash('sha256', random_bytes(5));
-            $model->password = password_hash($model->password, PASSWORD_BCRYPT);
+            $model->password = password_hash($model->password, PASSWORD_ARGON2I);
             $model->save();
 
             $auth = \Yii::$app->authManager;
@@ -84,6 +84,22 @@ class UsersController extends \yii\web\Controller
     public function actionDelete()
     {
 
+    }
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function actionUpdate(int $id): string
+    {
+        $params = \Yii::$app->request->post();
+        $user = User::findOne($id);
+
+        if ($user->load($params) && $user->validate()) {
+            $user->password = password_hash($user->password, PASSWORD_ARGON2I);
+            $user->save();
+        }
+        return $this->render('_reset_password', compact('user'));
     }
 
 }

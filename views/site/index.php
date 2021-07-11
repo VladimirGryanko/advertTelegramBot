@@ -10,7 +10,7 @@ $this->title = 'Dashboard';
 ?>
 <div class="site-index">
     <div class="row justify-content-center">
-        <div class="col-md-6 my-5 mx-5 custom-panel">
+        <div class="col-md-6 my-5 mx-5 custom-panel custom-scroll-table px-2">
             <?php echo \yii\grid\GridView::widget([
                 'dataProvider' => $dataProvider,
                 'summaryOptions' => ['class' => 'custom-table'],
@@ -22,7 +22,7 @@ $this->title = 'Dashboard';
                     'username',
                     'email'
                 ],
-                'tableOptions' => ['class' => 'table custom-table my-3 ',],
+                'tableOptions' => ['class' => 'table custom-table my-3',],
             ]); ?>
         </div>
         <div class="col-md-3 my-5 mx-5 custom-panel">

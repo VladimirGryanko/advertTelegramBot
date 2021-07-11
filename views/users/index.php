@@ -21,10 +21,8 @@ $this->title = 'Пользователи';
                 'username',
                 'email',
                 [
-                    'label' => 'Роли',
-                    'value' => function () {
-                        return "<button></button>";
-                    },
+                    'class' => ActionColumn::class,
+                    'template' => "{update} {delete}",
                     'visible' => Yii::$app->user->identity->isAdmin()
                 ],
             ],

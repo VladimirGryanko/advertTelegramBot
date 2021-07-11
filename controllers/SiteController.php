@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use app\models\user\search\UserSearch;
 use Yii;
 use yii\filters\AccessControl;
@@ -75,21 +76,21 @@ class SiteController extends Controller
 
     /**
      * @return string
+     * @throws \SodiumException
      */
     public function actionLogin(): string
     {
         if (!\Yii::$app->user->isGuest) {
             $this->redirect('index');
         }
-
         $model = new LoginForm();
         $params = Yii::$app->request->post();
         if ($params !== [] && $model->load($params) && $model->validate()) {
-            $password = $model->password;
-            $hash = password_hash($password, PASSWORD_BCRYPT);
-            $model->password = $hash;
+            $user = User::findOne(['username' => $model->username]);
 
-            if (password_verify($password, $hash) && $model->login()) {
+            if ($user !== null && sodium_crypto_pwhash_str_verify($user->password, $model->password)) {
+                $model->password = password_hash($model->password, PASSWORD_ARGON2I);
+                $model->login();
                 $this->redirect('index');
             }
 

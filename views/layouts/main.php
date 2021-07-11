@@ -38,46 +38,47 @@ if (!Yii::$app->user->isGuest) {
 }
 ?>
 <div class="wrap">
-    <?php
-    if (!Yii::$app->user->isGuest) {
-        NavBar::begin([
-            'innerContainerOptions' => ['class' => 'container-fluid'],
-            'options' => [
-                'class' => 'navbar navbar-expand-lg navbar-dark',
-            ],
-        ]);
-        echo Nav::widget([
-            'items' => [
-                [
-                    'label' => 'Home',
-                    'url' => ['/site/index'],
-                    'linkOptions' => ['class' => 'custom-btn px-3'],
-                    'options' => ['class' => 'nav-item my-3 mx-3'],
-                ],
-                [
-                    'label' => 'Пользователи',
-                    'url' => ['/users/index'],
-                    'linkOptions' => ['class' => 'custom-btn px-3'],
-                    'options' => ['class' => 'nav-item my-3 mx-3'],
-                ],
-                [
-                    'label' =>
-                        sprintf(
-                            'Выход(%s)',
-                            !Yii::$app->user->isGuest
-                                ? User::findOne(['id' => Yii::$app->user->id])->username
-                                : null
-                        ),
-                    'linkOptions' => ['class' => 'custom-btn px-3'],
-                    'url' => ['/site/logout'],
-                    'options' => ['class' => 'nav-item my-3 mx-3']
-                ],
-            ],
-            'options' => ['class' => 'navbar-nav mx-4'],
-        ]);
-        NavBar::end();
-    }
-    ?>
+            <?php
+            if (!Yii::$app->user->isGuest) {
+                NavBar::begin([
+                    'innerContainerOptions' => ['class' => 'container-fluid'],
+                    'options' => [
+                        'class' => 'navbar navbar-expand-lg navbar-dark',
+                    ],
+                ]);
+                echo Nav::widget([
+                    'items' => [
+                        [
+                            'label' => 'Home',
+                            'url' => ['/site/index'],
+                            'linkOptions' => ['class' => 'custom-btn px-3'],
+                            'options' => ['class' => 'nav-item my-3 mx-3'],
+                        ],
+                        [
+                            'label' => 'Пользователи',
+                            'url' => ['/users/index'],
+                            'linkOptions' => ['class' => 'custom-btn px-3'],
+                            'options' => ['class' => 'nav-item my-3 mx-3'],
+                        ],
+                        [
+                            'label' =>
+                                sprintf(
+                                    'Выход(%s)',
+                                    !Yii::$app->user->isGuest
+                                        ? User::findOne(['id' => Yii::$app->user->id])->username
+                                        : null
+                                ),
+                            'linkOptions' => ['class' => 'custom-btn px-3'],
+                            'url' => ['/site/logout'],
+                            'options' => ['class' => 'nav-item my-3 mx-3']
+                        ],
+                    ],
+                    'options' => ['class' => 'navbar-nav mx-4'],
+                ]);
+                NavBar::end();
+            }
+            ?>
+
 
     <div class="container-fluid min-vh-100">
         <?= $content ?>
