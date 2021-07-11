@@ -30,7 +30,7 @@ class BotNaSovmestController extends \yii\rest\Controller
                     [
                         'actions' => [],
                         'allow' => true,
-                        'roles' => ['?']
+                        'roles' => []
                     ]
                 ],
             ],
