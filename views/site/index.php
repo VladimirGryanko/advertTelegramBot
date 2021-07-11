@@ -26,22 +26,8 @@ $this->title = 'Dashboard';
             ]); ?>
         </div>
         <div class="col-md-3 my-5 mx-5 custom-panel">
-            <div class="row justify-content-center mb-3"> Действия с пользователями</div>
+            <div class="row justify-content-center mb-3"> Боты: </div>
             <div class="row justify-content-center">
-                <div class="col-lg-5 my-2">
-                    <?= Html::a(
-                        'Добавить нового',
-                        ['/users/create'],
-                        ['class' => 'btn custom-btn px-3', 'style' => 'font-weight: bold;']
-                    ) ?>
-                </div>
-                <div class="col-lg-5 my-2">
-                    <?= Html::a(
-                        'Удалить',
-                        ['/users/delete'],
-                        ['class' => 'btn custom-btn px-3', 'style' => 'font-weight: bold;']
-                    ) ?>
-                </div>
             </div>
         </div>
     </div>
