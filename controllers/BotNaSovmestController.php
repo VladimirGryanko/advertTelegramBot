@@ -99,6 +99,7 @@ class BotNaSovmestController extends \yii\rest\Controller
         }
 
         $params = \Yii::$app->request->getBodyParams();
+        dump($params);exit();
         $updateId = $params['update_id'];
         $lastUpdateId = $this->storeGet(self::GLOBAL_CHAT_ID, self::STORE_UPDATE_ID);
 
