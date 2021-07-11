@@ -2,7 +2,6 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap4\ActiveForm */
-
 /* @var $model app\models\LoginForm */
 
 use yii\helpers\Html;
@@ -31,16 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-sm-12">
             <div class="row justify-content-center">
                 <div class="col-md-12  ">
-                    <!--                    <div class="container p-4">-->
-                    <!--                        <div class="neumorphic-card mx-auto">-->
-                    <!--                            <label class="neumorphic-label" for="login__input">Login</label>-->
-<!--                                                <input class="neumorphic-input" id="login__input" type="text"/>-->
-                    <!--                            <label class="neumorphic-label" for="password_input">Password</label>-->
-                    <!--                            <input class="neumorphic-input" id="password_input" type="text"/>-->
-                    <!--                            <button type="button" class="btn neumorphic-btn mt-5 mb-3">Log in</button>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-
                     <div class="neumorphic-card mx-auto">
                         <?php $form = ActiveForm::begin([
                             'layout' => 'horizontal',

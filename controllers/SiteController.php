@@ -2,21 +2,19 @@
 
 namespace app\controllers;
 
-use TelegramApi;
+use app\models\user\search\UserSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
     /**
      * @return array[]
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'access' => [
@@ -68,7 +66,10 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
-        return $this->render('index');
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->search();
+
+        return $this->render('index', compact('dataProvider'));
     }
 
 
@@ -84,9 +85,14 @@ class SiteController extends Controller
         $model = new LoginForm();
         $params = Yii::$app->request->post();
         if ($params !== [] && $model->load($params) && $model->validate()) {
-            if ($model->login()) {
+            $password = $model->password;
+            $hash = password_hash($password, PASSWORD_BCRYPT);
+            $model->password = $hash;
+
+            if (password_verify($password, $hash) && $model->login()) {
                 $this->redirect('index');
             }
+
             $model->addError('username', 'Не правильное имя пользователя или пароль');
         }
 

@@ -14,7 +14,9 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
-<?php $this->beginPage() ?>
+<?php $this->beginPage();
+
+?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -26,16 +28,22 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
-<?php $this->beginBody() ?>
-
+<?php $this->beginBody();
+if (!Yii::$app->user->isGuest) {
+    echo '<style>
+    body {
+        background-color: #1f202e;
+    }
+</style>';
+}
+?>
 <div class="wrap">
     <?php
-    if (Yii::$app->view->title !== 'Вход') {
+    if (!Yii::$app->user->isGuest) {
         NavBar::begin([
-            'brandLabel' => Yii::$app->name,
-            'brandUrl' => Yii::$app->homeUrl,
+            'innerContainerOptions' => ['class' => 'container-fluid'],
             'options' => [
-                'class' => 'navbar nav nav-masthead justify-content-center sticky-top navbar-expand-lg bg-dark navbar-dark',
+                'class' => 'navbar navbar-expand-lg navbar-dark',
             ],
         ]);
         echo Nav::widget([
@@ -43,23 +51,29 @@ AppAsset::register($this);
                 [
                     'label' => 'Home',
                     'url' => ['/site/index'],
-                    'options' => ['class' => 'nav-item'],
-                    'visible' => !Yii::$app->user->isGuest,
+                    'linkOptions' => ['class' => 'custom-btn px-3'],
+                    'options' => ['class' => 'nav-item my-3 mx-3'],
+                ],
+                [
+                    'label' => 'Пользователи',
+                    'url' => ['/users/index'],
+                    'linkOptions' => ['class' => 'custom-btn px-3'],
+                    'options' => ['class' => 'nav-item my-3 mx-3'],
                 ],
                 [
                     'label' =>
                         sprintf(
-                            'Logout(%s)',
+                            'Выход(%s)',
                             !Yii::$app->user->isGuest
                                 ? User::findOne(['id' => Yii::$app->user->id])->username
                                 : null
                         ),
+                    'linkOptions' => ['class' => 'custom-btn px-3'],
                     'url' => ['/site/logout'],
-                    'visible' => !Yii::$app->user->isGuest,
-                    'options' => ['class' => 'nav-item']
+                    'options' => ['class' => 'nav-item my-3 mx-3']
                 ],
             ],
-            'options' => ['class' => 'navbar-nav ml-4 justify-content-between'],
+            'options' => ['class' => 'navbar-nav mx-4'],
         ]);
         NavBar::end();
     }
@@ -69,14 +83,6 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-
-<?php if (Yii::$app->view->title !== 'Вход') {
-    echo '<footer class="footer">
-            <div class="container-fluid">
-                <p class="pull-left">&copy; AdvertTelegramBot '. date("Y") . '</p>
-            </div>
-           </footer>';
-} ?>
 
 <?php $this->endBody() ?>
 </body>

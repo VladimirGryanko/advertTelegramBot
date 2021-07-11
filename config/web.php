@@ -15,6 +15,15 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 0,
+        ],
         'request' => [
             'baseUrl' => '',
             'cookieValidationKey' => 'asSW123Fs1W111321FFDSawdswWssdwWF15',
