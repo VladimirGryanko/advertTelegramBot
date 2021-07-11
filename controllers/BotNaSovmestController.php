@@ -17,31 +17,31 @@ use yii\web\ForbiddenHttpException;
 class BotNaSovmestController extends \yii\rest\Controller
 {
 
-//    /**
-//     * @return array[]
-//     */
-//    public function behaviors(): array
-//    {
-//        return [
-//            'access' => [
-//                'class' => AccessControl::class,
-//                'only' => [],
-//                'rules' => [
-//                    [
-//                        'actions' => [],
-//                        'allow' => true,
-//                        'roles' => ['?']
-//                    ]
-//                ],
-//            ],
-//            'verbs' => [
-//                'class' => VerbFilter::class,
-//                'actions' => [
-//                    'index' => ['post', 'get'],
-//                ],
-//            ],
-//        ];
-//    }
+    /**
+     * @return array[]
+     */
+    public function behaviors(): array
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => [],
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['?']
+                    ]
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'index' => ['post', 'get'],
+                ],
+            ],
+        ];
+    }
 
     /* @var string[] */
     private const COMMANDS = [
@@ -99,7 +99,6 @@ class BotNaSovmestController extends \yii\rest\Controller
         }
 
         $params = \Yii::$app->request->getBodyParams();
-        dump($params);exit;
         $updateId = $params['update_id'];
         $lastUpdateId = $this->storeGet(self::GLOBAL_CHAT_ID, self::STORE_UPDATE_ID);
 
