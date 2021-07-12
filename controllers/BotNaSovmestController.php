@@ -92,8 +92,9 @@ class BotNaSovmestController extends \yii\rest\Controller
             throw new ForbiddenHttpException('Доступ запрещен');
         }
 
-        $params = \Yii::$app->request->getBodyParams();
-        dump($params);exit();
+        $params = \Yii::$app->request->bodyParams;
+        $params1 = $_POST;
+        dump($params, $params1);exit();
         $updateId = $params['update_id'];
         $lastUpdateId = $this->storeGet(self::GLOBAL_CHAT_ID, self::STORE_UPDATE_ID);
 
