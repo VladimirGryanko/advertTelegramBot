@@ -34,12 +34,6 @@ class BotNaSovmestController extends \yii\rest\Controller
                     ]
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'index' => ['post', 'get'],
-                ],
-            ],
         ];
     }
 
